@@ -1,15 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap");
 
 :root {
-  --paper: #fff9e8;
+  --bg: #fff9e8;
   --ink: #20213b;
   --pink: #ff4f87;
   --blue: #4b68ff;
   --yellow: #ffdb57;
   --green: #9de86b;
-  --white: #ffffff;
+  --white: #fff;
   --border: 3px solid var(--ink);
-  --pixel-shadow: 6px 6px 0 var(--ink);
+  --shadow: 5px 5px 0 var(--ink);
+  --pixel: "Press Start 2P", monospace;
+  --font: "Nunito", sans-serif;
 }
 
 * {
@@ -22,22 +24,21 @@ html {
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
+  min-height: 100vh;
   overflow-x: hidden;
-  background-color: var(--paper);
-  background-image: radial-gradient(#20213b18 1.5px, transparent 1.5px);
-  background-size: 22px 22px;
   color: var(--ink);
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font);
+  background: var(--bg) radial-gradient(#20213b18 1.5px, transparent 1.5px) 0
+    0 / 22px 22px;
 }
 
 button,
 input {
   font: inherit;
 }
-
 button {
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -46,7 +47,7 @@ button {
   z-index: -1;
   width: 180px;
   height: 180px;
-  border: 3px solid var(--ink);
+  border: var(--border);
   pointer-events: none;
 }
 
@@ -54,58 +55,59 @@ button {
   top: 20%;
   left: -100px;
   background: var(--pink);
-  transform: rotate(25deg);
-  animation: spinShape 18s linear infinite;
+  animation: spin 18s linear infinite;
 }
 
 .ambient-two {
   top: 65%;
   right: -100px;
-  background: var(--green);
   border-radius: 50%;
-  animation: bounceShape 4s ease-in-out infinite;
+  background: var(--green);
+  animation: bounce 4s ease-in-out infinite;
+}
+
+.topbar,
+.card-top,
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .topbar {
   width: min(1100px, calc(100% - 36px));
-  min-height: 85px;
+  min-height: 80px;
   margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
   border-bottom: var(--border);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   color: var(--ink);
   text-decoration: none;
-  font-family: "Press Start 2P", monospace;
-  font-size: 17px;
-  line-height: 1.8;
+  font: 17px/1.8 var(--pixel);
 }
 
 .brand-icon {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border: var(--border);
   border-radius: 50%;
   background: var(--white);
   color: var(--pink);
-  font-size: 30px;
-  box-shadow: 3px 3px 0 var(--ink);
+  font-size: 28px;
+  box-shadow: 3px 3px var(--ink);
   transition: transform 0.3s;
 }
 
 .brand:hover .brand-icon {
   transform: rotate(180deg);
 }
-
 .brand-accent {
   color: var(--blue);
 }
@@ -114,23 +116,20 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px;
+  padding: 9px;
   border: var(--border);
   background: var(--yellow);
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  line-height: 1.8;
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 3px 3px var(--ink);
+  font: 8px/1.8 var(--pixel);
 }
 
 .status-dot {
-  width: 10px;
-  height: 10px;
-  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
   border: 2px solid var(--ink);
   border-radius: 50%;
   background: #56d66b;
-  animation: pixelBlink 1.2s steps(2) infinite;
+  animation: blink 1.2s steps(2) infinite;
 }
 
 main {
@@ -139,36 +138,31 @@ main {
 }
 
 .hero {
-  padding: 75px 0 40px;
+  padding: 70px 0 40px;
   text-align: center;
-  animation: appear 0.6s ease-out both;
+  animation: enter 0.6s ease both;
 }
 
 .hero-tag {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 15px;
+  padding: 11px 14px;
   border: var(--border);
   background: var(--green);
-  box-shadow: 4px 4px 0 var(--ink);
-  font-family: "Press Start 2P", monospace;
-  font-size: 9px;
-  line-height: 1.8;
+  box-shadow: 4px 4px var(--ink);
+  font: 9px/1.8 var(--pixel);
   transform: rotate(-1deg);
 }
 
 .hero-tag span {
   color: #e53b72;
-  animation: starPop 1.2s ease-in-out infinite alternate;
+  animation: star 1s ease-in-out infinite alternate;
 }
 
 h1 {
-  max-width: 800px;
-  margin: 36px auto 18px;
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(23px, 4.4vw, 42px);
-  line-height: 1.65;
+  margin: 35px auto 18px;
+  font: clamp(22px, 4.5vw, 42px)/1.65 var(--pixel);
   letter-spacing: -2px;
 }
 
@@ -179,15 +173,15 @@ h1 span {
   margin: 5px auto 0;
   padding: 0 8px;
   background: var(--yellow);
+  text-shadow: 3px 3px #ffb6cc;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  text-shadow: 3px 3px 0 #ffb6cc;
 }
 
 .hero-description {
   max-width: 510px;
   margin: 22px auto;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.8;
 }
@@ -197,38 +191,37 @@ h1 span {
   align-items: center;
   gap: 10px;
   max-width: 640px;
-  margin: 35px auto 0;
-  padding: 10px;
-  border: 3px solid var(--ink);
+  margin: 34px auto 0;
+  padding: 9px;
+  border: var(--border);
   background: var(--white);
-  box-shadow: var(--pixel-shadow);
+  box-shadow: var(--shadow);
   transition:
     box-shadow 0.2s,
     transform 0.2s;
 }
 
 .search-form:focus-within {
-  box-shadow: 9px 9px 0 var(--blue);
   transform: translate(-2px, -2px);
+  box-shadow: 8px 8px var(--blue);
 }
 
 .search-icon {
-  padding-left: 8px;
+  padding-left: 7px;
   color: var(--blue);
-  font-size: 32px;
-  font-weight: 900;
+  font-size: 30px;
 }
 
 .search-form input {
   flex: 1;
   width: 0;
   min-width: 0;
-  padding: 15px 5px;
+  padding: 14px 5px;
   border: 0;
   outline: 0;
   background: transparent;
   color: var(--ink);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
 }
 
@@ -240,32 +233,26 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 16px 20px;
+  gap: 10px;
+  padding: 14px 18px;
   border: var(--border);
   background: var(--pink);
   color: var(--white);
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  line-height: 1.8;
-  cursor: pointer;
-  box-shadow: 3px 3px 0 var(--ink);
-  transition:
-    transform 0.15s,
-    box-shadow 0.15s;
+  box-shadow: 3px 3px var(--ink);
+  font: 9px/1.8 var(--pixel);
+  transition: 0.15s;
 }
 
 .search-form button:hover {
   background: var(--blue);
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--ink);
+  box-shadow: 1px 1px var(--ink);
 }
 
 .search-form button:active {
   transform: translate(4px, 4px);
   box-shadow: none;
 }
-
 .search-form button:disabled {
   opacity: 0.6;
   cursor: wait;
@@ -273,29 +260,23 @@ h1 span {
 
 .search-hint {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
+  gap: 9px;
+  margin-top: 26px;
   color: #77758c;
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  line-height: 2;
+  font: 8px/2 var(--pixel);
 }
 
 .example {
-  padding: 5px 2px;
+  padding: 4px 2px;
   border: 0;
   border-bottom: 2px dashed var(--blue);
   background: transparent;
   color: var(--blue);
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  transition:
-    color 0.2s,
-    background 0.2s;
+  font: inherit;
+  transition: 0.2s;
 }
 
 .example:hover {
@@ -304,45 +285,45 @@ h1 span {
 }
 
 .message {
-  min-height: 25px;
-  margin-top: 25px;
+  min-height: 24px;
+  margin-top: 24px;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 800;
 }
-
 .message.error {
   color: #d91e55;
-  animation: shake 0.35s;
+  animation: shake 0.3s;
 }
-
 .result-section {
   min-height: 90px;
-  padding: 10px 0 70px;
+  padding: 10px 0 65px;
 }
 
 .pokemon-card {
   position: relative;
+  isolation: isolate;
   width: min(100%, 600px);
   margin: 15px auto;
-  padding: 28px;
+  padding: 27px;
   overflow: hidden;
   border: 4px solid var(--ink);
   background: var(--white);
-  box-shadow: 10px 10px 0 var(--ink);
-  animation: cardFlip 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  box-shadow: 9px 9px var(--ink);
+  animation: cardEnter 0.6s ease both;
 }
 
 .pokemon-card::before {
   position: absolute;
+  z-index: -1;
   top: 100px;
   left: 50%;
-  width: 270px;
-  height: 270px;
+  width: 260px;
+  height: 260px;
   border: 3px dashed #20213b24;
   border-radius: 50%;
   content: "";
   transform: translateX(-50%);
-  animation: rotateCircle 24s linear infinite;
+  animation: orbit 24s linear infinite;
   pointer-events: none;
 }
 
@@ -350,89 +331,70 @@ h1 span {
   position: absolute;
   top: 0;
   right: 0;
-  width: 0;
-  height: 0;
-  border-top: 45px solid var(--yellow);
-  border-left: 45px solid transparent;
+  border-top: 42px solid var(--yellow);
+  border-left: 42px solid transparent;
   content: "";
 }
 
 .card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding-bottom: 14px;
+  padding-bottom: 13px;
   border-bottom: 3px dashed #20213b25;
 }
-
 .card-label {
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  line-height: 1.8;
+  font: 8px/1.8 var(--pixel);
 }
-
 .pokemon-number {
   padding: 8px;
   border: 2px solid var(--ink);
   background: var(--yellow);
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
+  font: 10px var(--pixel);
 }
 
 .pokemon-visual {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 250px;
+  min-height: 240px;
   margin: 10px 0;
   background: repeating-linear-gradient(
     135deg,
-    transparent,
-    transparent 12px,
-    #20213b05 12px,
-    #20213b05 24px
+    transparent 0 12px,
+    #20213b05 12px 24px
   );
 }
 
 .pokemon-visual::before {
   position: absolute;
-  bottom: 25px;
+  bottom: 23px;
   left: 50%;
-  width: 150px;
-  height: 25px;
+  width: 145px;
+  height: 23px;
   border-radius: 50%;
   background: #20213b18;
   content: "";
   transform: translateX(-50%);
-  animation: shadowPulse 2.5s ease-in-out infinite;
+  animation: shadow 2.2s ease-in-out infinite;
 }
 
 .pokemon-image {
   position: relative;
   z-index: 1;
-  width: min(240px, 75%);
-  height: 230px;
+  width: min(235px, 75%);
+  height: 225px;
   object-fit: contain;
-  image-rendering: auto;
-  filter: drop-shadow(5px 6px 0 #20213b15);
-  animation: pokemonHop 2.2s steps(5, end) infinite;
-  transition: filter 0.25s;
+  filter: drop-shadow(5px 6px #20213b15);
+  animation: hop 2.2s ease-in-out infinite;
+  transition: filter 0.2s;
 }
 
 .pokemon-image:hover {
-  filter: drop-shadow(7px 8px 0 #20213b30);
-  animation-play-state: paused;
-  transform: scale(1.1);
+  filter: drop-shadow(7px 8px #20213b30);
 }
 
 .pokemon-name {
-  position: relative;
   margin: 10px 0 20px;
   text-align: center;
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(20px, 4vw, 30px);
-  line-height: 1.8;
+  font: clamp(18px, 4vw, 30px)/1.8 var(--pixel);
   overflow-wrap: anywhere;
   text-transform: capitalize;
 }
@@ -446,21 +408,19 @@ h1 span {
 }
 
 .type-badge {
-  padding: 10px 14px;
-  border: 3px solid var(--ink);
+  padding: 9px 13px;
+  border: var(--border);
   background: var(--green);
-  color: var(--ink);
+  box-shadow: 3px 3px var(--ink);
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
-  box-shadow: 3px 3px 0 var(--ink);
   transition: transform 0.2s;
 }
 
 .type-badge:nth-child(even) {
   background: #bdb5ff;
 }
-
 .type-badge:hover {
   transform: translateY(-4px) rotate(-2deg);
 }
@@ -468,60 +428,50 @@ h1 span {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 13px;
+  gap: 12px;
 }
 
 .stat-box {
   min-width: 0;
-  padding: 17px;
-  border: 3px solid var(--ink);
-  background: var(--paper);
-  box-shadow: 4px 4px 0 var(--ink);
-  transition:
-    transform 0.2s,
-    background 0.2s;
+  padding: 16px;
+  border: var(--border);
+  background: var(--bg);
+  box-shadow: 4px 4px var(--ink);
+  transition: transform 0.2s;
 }
 
 .stat-box:nth-child(2) {
   background: #e9edff;
 }
-
 .stat-box:nth-child(3) {
   background: #ffe6ef;
 }
-
 .stat-box:nth-child(4) {
   background: #e6f8d8;
 }
-
 .stat-box:hover {
   transform: translate(-2px, -2px);
 }
 
 .stat-label {
   display: block;
-  margin-bottom: 10px;
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  line-height: 1.8;
+  margin-bottom: 9px;
+  font: 7px/1.8 var(--pixel);
   overflow-wrap: anywhere;
 }
 
 .stat-value {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 900;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
 .footer {
-  display: flex;
-  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 25px 0;
-  border-top: 3px solid var(--ink);
+  padding: 24px 0;
+  border-top: var(--border);
   color: #77758c;
   font-size: 11px;
   font-weight: 800;
@@ -530,45 +480,39 @@ h1 span {
 .footer p {
   margin: 0;
 }
-
 .footer-ball {
   color: var(--pink);
-  font-size: 25px;
+  font-size: 24px;
 }
-
 .footer-credit {
-  padding: 7px 9px;
+  padding: 7px;
   border: 2px solid var(--ink);
   background: var(--yellow);
   color: var(--ink);
-  font-family: "Press Start 2P", monospace;
-  font-size: 7px;
-  line-height: 1.8;
+  font: 7px/1.8 var(--pixel);
 }
 
-@keyframes appear {
+@keyframes enter {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-@keyframes cardFlip {
+@keyframes cardEnter {
   from {
     opacity: 0;
-    transform: translateY(25px) rotateX(12deg) scale(0.96);
+    transform: translateY(20px) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translateY(0) rotateX(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
-
-@keyframes pokemonHop {
+@keyframes hop {
   0%,
   100% {
     transform: translateY(0);
@@ -577,8 +521,7 @@ h1 span {
     transform: translateY(-10px);
   }
 }
-
-@keyframes shadowPulse {
+@keyframes shadow {
   0%,
   100% {
     transform: translateX(-50%) scaleX(1);
@@ -589,44 +532,31 @@ h1 span {
     opacity: 0.35;
   }
 }
-
-@keyframes rotateCircle {
+@keyframes orbit {
   to {
     transform: translateX(-50%) rotate(360deg);
   }
 }
-
-@keyframes spinShape {
+@keyframes spin {
   to {
     transform: rotate(385deg);
   }
 }
-
-@keyframes bounceShape {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
+@keyframes bounce {
   50% {
     transform: translateY(-30px);
   }
 }
-
-@keyframes pixelBlink {
+@keyframes blink {
   50% {
     opacity: 0.25;
   }
 }
-
-@keyframes starPop {
-  from {
-    transform: scale(0.8) rotate(-10deg);
-  }
+@keyframes star {
   to {
     transform: scale(1.2) rotate(10deg);
   }
 }
-
 @keyframes shake {
   25% {
     transform: translateX(-5px);
@@ -639,124 +569,92 @@ h1 span {
 @media (max-width: 600px) {
   .topbar {
     width: calc(100% - 28px);
-    min-height: 75px;
+    min-height: 70px;
   }
-
   .brand {
     gap: 7px;
-    font-size: 11px;
+    font-size: 10px;
   }
-
   .brand-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 23px;
+    width: 33px;
+    height: 33px;
+    font-size: 22px;
   }
-
   .status {
     gap: 5px;
-    padding: 7px;
+    padding: 6px;
     font-size: 6px;
   }
-
   main {
     width: calc(100% - 30px);
   }
-
   .hero {
-    padding-top: 55px;
+    padding-top: 50px;
   }
-
   .hero-tag {
-    padding: 8px 10px;
+    padding: 8px;
     font-size: 7px;
   }
-
   h1 {
-    margin-top: 28px;
-    font-size: clamp(18px, 5vw, 28px);
+    font-size: clamp(17px, 5vw, 27px);
     letter-spacing: -1px;
   }
-
   .hero-description {
-    font-size: 14px;
+    font-size: 13px;
   }
-
   .search-form {
     gap: 5px;
-    padding: 7px;
+    padding: 6px;
   }
-
   .search-icon {
-    padding-left: 3px;
-    font-size: 23px;
+    padding-left: 2px;
+    font-size: 22px;
   }
-
   .search-form input {
-    font-size: 12px;
+    font-size: 11px;
   }
-
   .search-form button {
     gap: 5px;
     padding: 11px 8px;
     font-size: 7px;
   }
-
   .search-hint {
-    gap: 7px;
+    gap: 6px;
     font-size: 6px;
   }
-
   .pokemon-card {
-    padding: 19px 13px;
-    box-shadow: 6px 6px 0 var(--ink);
+    padding: 18px 12px;
+    box-shadow: 6px 6px var(--ink);
   }
-
   .card-label {
     font-size: 6px;
   }
-
   .pokemon-number {
     padding: 6px;
     font-size: 8px;
   }
-
   .pokemon-visual {
     min-height: 205px;
   }
-
   .pokemon-image {
-    height: 195px;
+    height: 190px;
   }
-
   .pokemon-card::before {
-    width: 220px;
-    height: 220px;
+    width: 210px;
+    height: 210px;
   }
-
-  .pokemon-name {
-    font-size: clamp(16px, 4.5vw, 24px);
-  }
-
   .stats-grid {
     gap: 9px;
   }
-
   .stat-box {
-    padding: 12px 9px;
-    box-shadow: 3px 3px 0 var(--ink);
+    padding: 11px 8px;
+    box-shadow: 3px 3px var(--ink);
   }
-
   .stat-label {
-    font-size: 7px;
+    font-size: 6px;
   }
-
   .stat-value {
-    font-size: 15px;
-  }
-
-  .footer {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 
