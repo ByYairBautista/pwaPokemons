@@ -39,7 +39,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Interceptar solicitudes
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
@@ -47,7 +46,6 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
-  // Solo manejar las consultas de Pokémon de PokéAPI
   const isPokemonRequest =
     url.origin === "https://pokeapi.co" &&
     /^\/api\/v2\/pokemon\/[^/]+\/?$/.test(url.pathname);
@@ -57,7 +55,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // No interceptar otras APIs ni sitios externos
   if (url.origin !== self.location.origin) return;
 
   // Archivos de la aplicación: caché primero

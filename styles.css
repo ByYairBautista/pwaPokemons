@@ -1,17 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap");
 
 :root {
-  --bg: #fff9e8;
+  --paper: #fff9e8;
   --ink: #20213b;
   --pink: #ff4f87;
   --blue: #4b68ff;
   --yellow: #ffdb57;
   --green: #9de86b;
-  --white: #fff;
+  --white: #ffffff;
   --border: 3px solid var(--ink);
-  --shadow: 5px 5px 0 var(--ink);
-  --pixel: "Press Start 2P", monospace;
-  --font: "Nunito", sans-serif;
+  --pixel-shadow: 6px 6px 0 var(--ink);
 }
 
 * {
@@ -24,21 +22,22 @@ html {
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
+  margin: 0;
   overflow-x: hidden;
+  background-color: var(--paper);
+  background-image: radial-gradient(#20213b18 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
   color: var(--ink);
-  font-family: var(--font);
-  background: var(--bg) radial-gradient(#20213b18 1.5px, transparent 1.5px) 0
-    0 / 22px 22px;
+  font-family: "Nunito", sans-serif;
 }
 
 button,
 input {
   font: inherit;
 }
+
 button {
-  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -47,7 +46,7 @@ button {
   z-index: -1;
   width: 180px;
   height: 180px;
-  border: var(--border);
+  border: 3px solid var(--ink);
   pointer-events: none;
 }
 
@@ -55,59 +54,58 @@ button {
   top: 20%;
   left: -100px;
   background: var(--pink);
-  animation: spin 18s linear infinite;
+  transform: rotate(25deg);
+  animation: spinShape 18s linear infinite;
 }
 
 .ambient-two {
   top: 65%;
   right: -100px;
-  border-radius: 50%;
   background: var(--green);
-  animation: bounce 4s ease-in-out infinite;
-}
-
-.topbar,
-.card-top,
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  border-radius: 50%;
+  animation: bounceShape 4s ease-in-out infinite;
 }
 
 .topbar {
   width: min(1100px, calc(100% - 36px));
-  min-height: 80px;
+  min-height: 85px;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   border-bottom: var(--border);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--ink);
   text-decoration: none;
-  font: 17px/1.8 var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: 17px;
+  line-height: 1.8;
 }
 
 .brand-icon {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border: var(--border);
   border-radius: 50%;
   background: var(--white);
   color: var(--pink);
-  font-size: 28px;
-  box-shadow: 3px 3px var(--ink);
+  font-size: 30px;
+  box-shadow: 3px 3px 0 var(--ink);
   transition: transform 0.3s;
 }
 
 .brand:hover .brand-icon {
   transform: rotate(180deg);
 }
+
 .brand-accent {
   color: var(--blue);
 }
@@ -116,20 +114,23 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 9px;
+  padding: 10px 12px;
   border: var(--border);
   background: var(--yellow);
-  box-shadow: 3px 3px var(--ink);
-  font: 8px/1.8 var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  line-height: 1.8;
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
 .status-dot {
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
   border: 2px solid var(--ink);
   border-radius: 50%;
   background: #56d66b;
-  animation: blink 1.2s steps(2) infinite;
+  animation: pixelBlink 1.2s steps(2) infinite;
 }
 
 main {
@@ -138,31 +139,36 @@ main {
 }
 
 .hero {
-  padding: 70px 0 40px;
+  padding: 75px 0 40px;
   text-align: center;
-  animation: enter 0.6s ease both;
+  animation: appear 0.6s ease-out both;
 }
 
 .hero-tag {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 14px;
+  padding: 12px 15px;
   border: var(--border);
   background: var(--green);
-  box-shadow: 4px 4px var(--ink);
-  font: 9px/1.8 var(--pixel);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.8;
   transform: rotate(-1deg);
 }
 
 .hero-tag span {
   color: #e53b72;
-  animation: star 1s ease-in-out infinite alternate;
+  animation: starPop 1.2s ease-in-out infinite alternate;
 }
 
 h1 {
-  margin: 35px auto 18px;
-  font: clamp(22px, 4.5vw, 42px)/1.65 var(--pixel);
+  max-width: 800px;
+  margin: 36px auto 18px;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(23px, 4.4vw, 42px);
+  line-height: 1.65;
   letter-spacing: -2px;
 }
 
@@ -173,15 +179,15 @@ h1 span {
   margin: 5px auto 0;
   padding: 0 8px;
   background: var(--yellow);
-  text-shadow: 3px 3px #ffb6cc;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  text-shadow: 3px 3px 0 #ffb6cc;
 }
 
 .hero-description {
   max-width: 510px;
   margin: 22px auto;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.8;
 }
@@ -191,37 +197,38 @@ h1 span {
   align-items: center;
   gap: 10px;
   max-width: 640px;
-  margin: 34px auto 0;
-  padding: 9px;
-  border: var(--border);
+  margin: 35px auto 0;
+  padding: 10px;
+  border: 3px solid var(--ink);
   background: var(--white);
-  box-shadow: var(--shadow);
+  box-shadow: var(--pixel-shadow);
   transition:
     box-shadow 0.2s,
     transform 0.2s;
 }
 
 .search-form:focus-within {
+  box-shadow: 9px 9px 0 var(--blue);
   transform: translate(-2px, -2px);
-  box-shadow: 8px 8px var(--blue);
 }
 
 .search-icon {
-  padding-left: 7px;
+  padding-left: 8px;
   color: var(--blue);
-  font-size: 30px;
+  font-size: 32px;
+  font-weight: 900;
 }
 
 .search-form input {
   flex: 1;
   width: 0;
   min-width: 0;
-  padding: 14px 5px;
+  padding: 15px 5px;
   border: 0;
   outline: 0;
   background: transparent;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
 }
 
@@ -233,26 +240,32 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px 18px;
+  gap: 12px;
+  padding: 16px 20px;
   border: var(--border);
   background: var(--pink);
   color: var(--white);
-  box-shadow: 3px 3px var(--ink);
-  font: 9px/1.8 var(--pixel);
-  transition: 0.15s;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1.8;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .search-form button:hover {
   background: var(--blue);
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px var(--ink);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .search-form button:active {
   transform: translate(4px, 4px);
   box-shadow: none;
 }
+
 .search-form button:disabled {
   opacity: 0.6;
   cursor: wait;
@@ -260,23 +273,29 @@ h1 span {
 
 .search-hint {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 9px;
-  margin-top: 26px;
+  gap: 10px;
+  margin-top: 28px;
   color: #77758c;
-  font: 8px/2 var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  line-height: 2;
 }
 
 .example {
-  padding: 4px 2px;
+  padding: 5px 2px;
   border: 0;
   border-bottom: 2px dashed var(--blue);
   background: transparent;
   color: var(--blue);
-  font: inherit;
-  transition: 0.2s;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 
 .example:hover {
@@ -285,45 +304,45 @@ h1 span {
 }
 
 .message {
-  min-height: 24px;
-  margin-top: 24px;
+  min-height: 25px;
+  margin-top: 25px;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
 }
+
 .message.error {
   color: #d91e55;
-  animation: shake 0.3s;
+  animation: shake 0.35s;
 }
+
 .result-section {
   min-height: 90px;
-  padding: 10px 0 65px;
+  padding: 10px 0 70px;
 }
 
 .pokemon-card {
   position: relative;
-  isolation: isolate;
   width: min(100%, 600px);
   margin: 15px auto;
-  padding: 27px;
+  padding: 28px;
   overflow: hidden;
   border: 4px solid var(--ink);
   background: var(--white);
-  box-shadow: 9px 9px var(--ink);
-  animation: cardEnter 0.6s ease both;
+  box-shadow: 10px 10px 0 var(--ink);
+  animation: cardFlip 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .pokemon-card::before {
   position: absolute;
-  z-index: -1;
   top: 100px;
   left: 50%;
-  width: 260px;
-  height: 260px;
+  width: 270px;
+  height: 270px;
   border: 3px dashed #20213b24;
   border-radius: 50%;
   content: "";
   transform: translateX(-50%);
-  animation: orbit 24s linear infinite;
+  animation: rotateCircle 24s linear infinite;
   pointer-events: none;
 }
 
@@ -331,70 +350,89 @@ h1 span {
   position: absolute;
   top: 0;
   right: 0;
-  border-top: 42px solid var(--yellow);
-  border-left: 42px solid transparent;
+  width: 0;
+  height: 0;
+  border-top: 45px solid var(--yellow);
+  border-left: 45px solid transparent;
   content: "";
 }
 
 .card-top {
-  padding-bottom: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 14px;
   border-bottom: 3px dashed #20213b25;
 }
+
 .card-label {
-  font: 8px/1.8 var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  line-height: 1.8;
 }
+
 .pokemon-number {
   padding: 8px;
   border: 2px solid var(--ink);
   background: var(--yellow);
-  font: 10px var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
 }
 
 .pokemon-visual {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 240px;
+  min-height: 250px;
   margin: 10px 0;
   background: repeating-linear-gradient(
     135deg,
-    transparent 0 12px,
-    #20213b05 12px 24px
+    transparent,
+    transparent 12px,
+    #20213b05 12px,
+    #20213b05 24px
   );
 }
 
 .pokemon-visual::before {
   position: absolute;
-  bottom: 23px;
+  bottom: 25px;
   left: 50%;
-  width: 145px;
-  height: 23px;
+  width: 150px;
+  height: 25px;
   border-radius: 50%;
   background: #20213b18;
   content: "";
   transform: translateX(-50%);
-  animation: shadow 2.2s ease-in-out infinite;
+  animation: shadowPulse 2.5s ease-in-out infinite;
 }
 
 .pokemon-image {
   position: relative;
   z-index: 1;
-  width: min(235px, 75%);
-  height: 225px;
+  width: min(240px, 75%);
+  height: 230px;
   object-fit: contain;
-  filter: drop-shadow(5px 6px #20213b15);
-  animation: hop 2.2s ease-in-out infinite;
-  transition: filter 0.2s;
+  image-rendering: auto;
+  filter: drop-shadow(5px 6px 0 #20213b15);
+  animation: pokemonHop 2.2s steps(5, end) infinite;
+  transition: filter 0.25s;
 }
 
 .pokemon-image:hover {
-  filter: drop-shadow(7px 8px #20213b30);
+  filter: drop-shadow(7px 8px 0 #20213b30);
+  animation-play-state: paused;
+  transform: scale(1.1);
 }
 
 .pokemon-name {
+  position: relative;
   margin: 10px 0 20px;
   text-align: center;
-  font: clamp(18px, 4vw, 30px)/1.8 var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(20px, 4vw, 30px);
+  line-height: 1.8;
   overflow-wrap: anywhere;
   text-transform: capitalize;
 }
@@ -408,19 +446,21 @@ h1 span {
 }
 
 .type-badge {
-  padding: 9px 13px;
-  border: var(--border);
+  padding: 10px 14px;
+  border: 3px solid var(--ink);
   background: var(--green);
-  box-shadow: 3px 3px var(--ink);
+  color: var(--ink);
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--ink);
   transition: transform 0.2s;
 }
 
 .type-badge:nth-child(even) {
   background: #bdb5ff;
 }
+
 .type-badge:hover {
   transform: translateY(-4px) rotate(-2deg);
 }
@@ -428,50 +468,60 @@ h1 span {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 13px;
 }
 
 .stat-box {
   min-width: 0;
-  padding: 16px;
-  border: var(--border);
-  background: var(--bg);
-  box-shadow: 4px 4px var(--ink);
-  transition: transform 0.2s;
+  padding: 17px;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition:
+    transform 0.2s,
+    background 0.2s;
 }
 
 .stat-box:nth-child(2) {
   background: #e9edff;
 }
+
 .stat-box:nth-child(3) {
   background: #ffe6ef;
 }
+
 .stat-box:nth-child(4) {
   background: #e6f8d8;
 }
+
 .stat-box:hover {
   transform: translate(-2px, -2px);
 }
 
 .stat-label {
   display: block;
-  margin-bottom: 9px;
-  font: 7px/1.8 var(--pixel);
+  margin-bottom: 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  line-height: 1.8;
   overflow-wrap: anywhere;
 }
 
 .stat-value {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 900;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
 .footer {
+  display: flex;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 24px 0;
-  border-top: var(--border);
+  gap: 12px;
+  padding: 25px 0;
+  border-top: 3px solid var(--ink);
   color: #77758c;
   font-size: 11px;
   font-weight: 800;
@@ -480,39 +530,45 @@ h1 span {
 .footer p {
   margin: 0;
 }
+
 .footer-ball {
   color: var(--pink);
-  font-size: 24px;
+  font-size: 25px;
 }
+
 .footer-credit {
-  padding: 7px;
+  padding: 7px 9px;
   border: 2px solid var(--ink);
   background: var(--yellow);
   color: var(--ink);
-  font: 7px/1.8 var(--pixel);
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  line-height: 1.8;
 }
 
-@keyframes enter {
+@keyframes appear {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(25px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-@keyframes cardEnter {
+
+@keyframes cardFlip {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.97);
+    transform: translateY(25px) rotateX(12deg) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) rotateX(0) scale(1);
   }
 }
-@keyframes hop {
+
+@keyframes pokemonHop {
   0%,
   100% {
     transform: translateY(0);
@@ -521,7 +577,8 @@ h1 span {
     transform: translateY(-10px);
   }
 }
-@keyframes shadow {
+
+@keyframes shadowPulse {
   0%,
   100% {
     transform: translateX(-50%) scaleX(1);
@@ -532,31 +589,44 @@ h1 span {
     opacity: 0.35;
   }
 }
-@keyframes orbit {
+
+@keyframes rotateCircle {
   to {
     transform: translateX(-50%) rotate(360deg);
   }
 }
-@keyframes spin {
+
+@keyframes spinShape {
   to {
     transform: rotate(385deg);
   }
 }
-@keyframes bounce {
+
+@keyframes bounceShape {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
   50% {
     transform: translateY(-30px);
   }
 }
-@keyframes blink {
+
+@keyframes pixelBlink {
   50% {
     opacity: 0.25;
   }
 }
-@keyframes star {
+
+@keyframes starPop {
+  from {
+    transform: scale(0.8) rotate(-10deg);
+  }
   to {
     transform: scale(1.2) rotate(10deg);
   }
 }
+
 @keyframes shake {
   25% {
     transform: translateX(-5px);
@@ -569,92 +639,124 @@ h1 span {
 @media (max-width: 600px) {
   .topbar {
     width: calc(100% - 28px);
-    min-height: 70px;
+    min-height: 75px;
   }
+
   .brand {
     gap: 7px;
-    font-size: 10px;
+    font-size: 11px;
   }
+
   .brand-icon {
-    width: 33px;
-    height: 33px;
-    font-size: 22px;
+    width: 34px;
+    height: 34px;
+    font-size: 23px;
   }
+
   .status {
     gap: 5px;
-    padding: 6px;
+    padding: 7px;
     font-size: 6px;
   }
+
   main {
     width: calc(100% - 30px);
   }
+
   .hero {
-    padding-top: 50px;
+    padding-top: 55px;
   }
+
   .hero-tag {
-    padding: 8px;
+    padding: 8px 10px;
     font-size: 7px;
   }
+
   h1 {
-    font-size: clamp(17px, 5vw, 27px);
+    margin-top: 28px;
+    font-size: clamp(18px, 5vw, 28px);
     letter-spacing: -1px;
   }
+
   .hero-description {
-    font-size: 13px;
+    font-size: 14px;
   }
+
   .search-form {
     gap: 5px;
-    padding: 6px;
+    padding: 7px;
   }
+
   .search-icon {
-    padding-left: 2px;
-    font-size: 22px;
+    padding-left: 3px;
+    font-size: 23px;
   }
+
   .search-form input {
-    font-size: 11px;
+    font-size: 12px;
   }
+
   .search-form button {
     gap: 5px;
     padding: 11px 8px;
     font-size: 7px;
   }
+
   .search-hint {
-    gap: 6px;
+    gap: 7px;
     font-size: 6px;
   }
+
   .pokemon-card {
-    padding: 18px 12px;
-    box-shadow: 6px 6px var(--ink);
+    padding: 19px 13px;
+    box-shadow: 6px 6px 0 var(--ink);
   }
+
   .card-label {
     font-size: 6px;
   }
+
   .pokemon-number {
     padding: 6px;
     font-size: 8px;
   }
+
   .pokemon-visual {
     min-height: 205px;
   }
+
   .pokemon-image {
-    height: 190px;
+    height: 195px;
   }
+
   .pokemon-card::before {
-    width: 210px;
-    height: 210px;
+    width: 220px;
+    height: 220px;
   }
+
+  .pokemon-name {
+    font-size: clamp(16px, 4.5vw, 24px);
+  }
+
   .stats-grid {
     gap: 9px;
   }
+
   .stat-box {
-    padding: 11px 8px;
-    box-shadow: 3px 3px var(--ink);
+    padding: 12px 9px;
+    box-shadow: 3px 3px 0 var(--ink);
   }
+
   .stat-label {
-    font-size: 6px;
+    font-size: 7px;
   }
+
   .stat-value {
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  .footer {
+    font-size: 10px;
   }
 }
 
