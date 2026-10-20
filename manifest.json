@@ -1,15 +1,16 @@
+
 {
-  "name": "Pokédex PWA",
-  "short_name": "Pokédex",
-  "description": "Busca Pokémon con la PokéAPI, funciona sin conexión.",
   "id": "./",
-  "start_url": "./",
+  "name": "Pokédex | Pokémon Explorer",
+  "short_name": "Pokédex",
+  "description": "Busca Pokémon con la PokéAPI y consulta sus características, tipos y habilidades.",
+  "lang": "es",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "lang": "es",
+  "background_color": "#fff9e8",
+  "theme_color": "#101322",
   "icons": [
     {
       "src": "./images/icon-192.png",
