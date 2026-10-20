@@ -1,4 +1,3 @@
-
 const form = document.getElementById("search-form");
 const input = document.getElementById("pokemon-name");
 const container = document.getElementById("pokemon-container");
@@ -32,10 +31,6 @@ const typeColors = {
   ghost: "#9b8ade",
   steel: "#94a3b8"
 };
-
-// ==============================
-// BUSCADOR DE POKÉMON
-// ==============================
 
 async function showPokemon(value) {
   const query = String(value).trim().toLowerCase();
@@ -82,11 +77,11 @@ async function showPokemon(value) {
 
     const label = document.createElement("span");
     label.className = "card-label";
-    label.textContent = "POKÉMON DESCUBIERTO";
+    label.textContent = "POKEMON DESCUBIERTO";
 
     const number = document.createElement("span");
     number.className = "pokemon-number";
-    number.textContent = `#${String(pokemon.id).padStart(3, "0")}`;
+    number.textContent = "#" + String(pokemon.id).padStart(3, "0");
 
     top.append(label, number);
 
@@ -95,7 +90,7 @@ async function showPokemon(value) {
 
     const image = document.createElement("img");
     image.className = "pokemon-image";
-    image.alt = `Pokémon ${pokemon.name}`;
+    image.alt = "Pokemon " + pokemon.name;
     image.loading = "lazy";
     image.src =
       pokemon.sprites.other?.["official-artwork"]?.front_default ||
@@ -122,8 +117,8 @@ async function showPokemon(value) {
     stats.className = "stats-grid";
 
     const details = [
-      ["Altura", `${pokemon.height / 10} m`],
-      ["Peso", `${pokemon.weight / 10} kg`],
+      ["Altura", (pokemon.height / 10) + " m"],
+      ["Peso", (pokemon.weight / 10) + " kg"],
       ["Experiencia base", pokemon.base_experience ?? "N/D"],
       [
         "Habilidades",
@@ -150,7 +145,7 @@ async function showPokemon(value) {
     card.append(top, visual, name, types, stats);
     container.appendChild(card);
 
-    message.textContent = "¡Pokémon encontrado!";
+    message.textContent = "Pokemon encontrado!";
   } catch (error) {
     message.textContent = error.message || "Ocurrió un error inesperado.";
     message.classList.add("error");
@@ -171,24 +166,16 @@ document.querySelectorAll("[data-pokemon]").forEach(button => {
   });
 });
 
-// ==============================
-// SERVICE WORKER
-// ==============================
-
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async () => {
     try {
-      await navigator.serviceWorker.register("./service-worker.js");
+      await navigator.serviceWorker.register("./serviceworker.js");
       console.log("Service Worker registrado correctamente.");
     } catch (error) {
       console.error("Error registrando el Service Worker:", error);
     }
   });
 }
-
-// ==============================
-// INSTALACIÓN DE LA PWA
-// ==============================
 
 function isAppInstalled() {
   return window.matchMedia("(display-mode: standalone)").matches ||
@@ -205,7 +192,6 @@ function showInstallPrompt() {
   }
 }
 
-// El navegador ofrece la instalación nativa.
 window.addEventListener("beforeinstallprompt", event => {
   event.preventDefault();
   deferredInstallPrompt = event;
@@ -215,7 +201,6 @@ window.addEventListener("beforeinstallprompt", event => {
   showInstallPrompt();
 });
 
-// El usuario pulsa el botón de instalación.
 installButton.addEventListener("click", async () => {
   if (isAppInstalled()) {
     hideInstallPrompt();
@@ -226,7 +211,7 @@ installButton.addEventListener("click", async () => {
     installHelp.hidden = false;
     installHelp.textContent =
       "Si no aparece la instalación automática, abre el menú del navegador " +
-      "y selecciona «Instalar aplicación» o «Instalar página como aplicación».";
+      "y selecciona Instalar aplicación o Instalar página como aplicación.";
     return;
   }
 
@@ -256,19 +241,16 @@ installButton.addEventListener("click", async () => {
   }
 });
 
-// El usuario cierra el aviso.
 dismissInstallButton.addEventListener("click", () => {
   hideInstallPrompt();
 });
 
-// El navegador confirma que se instaló.
 window.addEventListener("appinstalled", () => {
   hideInstallPrompt();
   deferredInstallPrompt = null;
   console.log("La Pokédex se instaló correctamente.");
 });
 
-// Evitar mostrar el aviso si ya está instalada.
 if (isAppInstalled()) {
   hideInstallPrompt();
 } else {

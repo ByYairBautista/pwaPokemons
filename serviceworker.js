@@ -1,15 +1,13 @@
-
-const CACHE_NAME = "pokedex-cache-v1";
+const CACHE_NAME = "pokedex-cache-v2";
 
 const APP_FILES = [
   "./",
   "./index.html",
-  "./style.css",
+  "./styles.css",
   "./app.js",
   "./manifest.json",
   "./images/icon-192.png",
   "./images/icon-512.png"
-  
 ];
 
 self.addEventListener("install", event => {
@@ -45,7 +43,6 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(request.url);
 
-  // Las consultas a la PokéAPI siempre intentan ir a internet.
   if (url.origin !== self.location.origin) {
     return;
   }
