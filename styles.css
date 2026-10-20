@@ -138,6 +138,108 @@ main {
   margin: auto;
 }
 
+/* ==============================
+   BEFORE INSTALL PROMPT
+   ============================== */
+
+.install-prompt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: min(850px, calc(100% - 36px));
+  margin: 28px auto 0;
+  padding: 22px;
+  border: 3px solid var(--ink);
+  background: var(--white);
+  box-shadow: 6px 6px 0 var(--ink);
+  animation: appear 0.4s ease-out both;
+}
+
+.install-prompt[hidden] {
+  display: none;
+}
+
+.install-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 65px;
+  height: 65px;
+  border: 3px solid var(--ink);
+  background: var(--yellow);
+  font-size: 30px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.install-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.install-content h2 {
+  margin: 0 0 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.install-content p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.install-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.install-actions button {
+  padding: 12px 16px;
+  border: 3px solid var(--ink);
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.8;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+#install-button {
+  background: var(--green);
+  color: var(--ink);
+}
+
+#dismiss-install {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.install-actions button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.install-actions button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.install-actions button:focus-visible {
+  outline: 3px dashed var(--blue);
+  outline-offset: 4px;
+}
+
+/* ==============================
+   CONTENIDO PRINCIPAL
+   ============================== */
+
 .hero {
   padding: 75px 0 40px;
   text-align: center;
@@ -319,6 +421,10 @@ h1 span {
   min-height: 90px;
   padding: 10px 0 70px;
 }
+
+/* ==============================
+   TARJETA DEL POKÉMON
+   ============================== */
 
 .pokemon-card {
   position: relative;
@@ -514,6 +620,10 @@ h1 span {
   overflow-wrap: anywhere;
 }
 
+/* ==============================
+   PIE DE PÁGINA
+   ============================== */
+
 .footer {
   display: flex;
   align-items: center;
@@ -546,11 +656,16 @@ h1 span {
   line-height: 1.8;
 }
 
+/* ==============================
+   ANIMACIONES
+   ============================== */
+
 @keyframes appear {
   from {
     opacity: 0;
     transform: translateY(25px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -562,6 +677,7 @@ h1 span {
     opacity: 0;
     transform: translateY(25px) rotateX(12deg) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) rotateX(0) scale(1);
@@ -573,6 +689,7 @@ h1 span {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -584,6 +701,7 @@ h1 span {
     transform: translateX(-50%) scaleX(1);
     opacity: 0.7;
   }
+
   50% {
     transform: translateX(-50%) scaleX(0.75);
     opacity: 0.35;
@@ -607,6 +725,7 @@ h1 span {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-30px);
   }
@@ -622,6 +741,7 @@ h1 span {
   from {
     transform: scale(0.8) rotate(-10deg);
   }
+
   to {
     transform: scale(1.2) rotate(10deg);
   }
@@ -631,10 +751,15 @@ h1 span {
   25% {
     transform: translateX(-5px);
   }
+
   75% {
     transform: translateX(5px);
   }
 }
+
+/* ==============================
+   DISEÑO RESPONSIVE
+   ============================== */
 
 @media (max-width: 600px) {
   .topbar {
@@ -661,6 +786,36 @@ h1 span {
 
   main {
     width: calc(100% - 30px);
+  }
+
+  .install-prompt {
+    align-items: flex-start;
+    gap: 12px;
+    width: calc(100% - 30px);
+    padding: 16px 12px;
+  }
+
+  .install-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+
+  .install-content h2 {
+    font-size: 10px;
+  }
+
+  .install-content p {
+    font-size: 12px;
+  }
+
+  .install-actions {
+    gap: 10px;
+  }
+
+  .install-actions button {
+    padding: 10px;
+    font-size: 8px;
   }
 
   .hero {
@@ -760,6 +915,7 @@ h1 span {
   }
 }
 
+/* Respetar la preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

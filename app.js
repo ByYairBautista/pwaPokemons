@@ -5,6 +5,14 @@ const container = document.getElementById("pokemon-container");
 const message = document.getElementById("message");
 const searchButton = document.getElementById("search-button");
 
+// Elementos del aviso de instalación
+const installPrompt = document.getElementById("install-prompt");
+const installButton = document.getElementById("install-button");
+const dismissInstallButton = document.getElementById("dismiss-install");
+
+// Evento de instalación guardado para usarlo después
+let deferredInstallPrompt = null;
+
 const typeColors = {
   fire: "#ff795b",
   water: "#60a5fa",
@@ -26,11 +34,16 @@ const typeColors = {
   steel: "#94a3b8"
 };
 
+// ==============================
+// BUSCADOR DE POKÉMON
+// ==============================
+
 async function showPokemon(value) {
   const query = String(value).trim().toLowerCase();
 
   if (!query) {
-    message.textContent = "Escribe el nombre o número de un Pokémon.";
+    message.textContent =
+      "Escribe el nombre o número de un Pokémon.";
     message.classList.add("error");
     return;
   }
@@ -47,10 +60,14 @@ async function showPokemon(value) {
 
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error("No encontramos ese Pokémon. Prueba otro nombre o número.");
+        throw new Error(
+          "No encontramos ese Pokémon. Prueba otro nombre o número."
+        );
       }
 
-      throw new Error("No se pudo consultar la API. Inténtalo de nuevo.");
+      throw new Error(
+        "No se pudo consultar la API. Inténtalo de nuevo."
+      );
     }
 
     const pokemon = await response.json();
@@ -59,6 +76,7 @@ async function showPokemon(value) {
     card.className = "pokemon-card";
 
     const mainType = pokemon.types[0].type.name;
+
     card.style.setProperty(
       "--pokemon-color",
       typeColors[mainType] || "#a78bfa"
@@ -114,7 +132,9 @@ async function showPokemon(value) {
       ["Experiencia base", pokemon.base_experience ?? "N/D"],
       [
         "Habilidades",
-        pokemon.abilities.map(item => item.ability.name).join(", ")
+        pokemon.abilities
+          .map((item) => item.ability.name)
+          .join(", ")
       ]
     ];
 
@@ -137,7 +157,7 @@ async function showPokemon(value) {
     card.append(top, visual, name, types, stats);
     container.appendChild(card);
 
-    message.textContent = "¡Pokémon encontrado! ✨";
+    message.textContent = "¡Pokémon encontrado!";
   } catch (error) {
     message.textContent = error.message;
     message.classList.add("error");
@@ -146,6 +166,7 @@ async function showPokemon(value) {
   }
 }
 
+// Enviar el formulario de búsqueda
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   showPokemon(input.value);
@@ -159,12 +180,96 @@ document.querySelectorAll("[data-pokemon]").forEach((button) => {
   });
 });
 
-// Registrar el Service Worker
+// ==============================
+// REGISTRAR EL SERVICE WORKER
+// ==============================
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./serviceworker.js")
+    navigator.serviceWorker
+      .register("./serviceworker.js")
       .catch((error) => {
-        console.error("Error registrando el Service Worker:", error);
+        console.error(
+          "Error registrando el Service Worker:",
+          error
+        );
       });
   });
 }
+
+// ==============================
+// BEFORE INSTALL PROMPT
+// ==============================
+
+// Detectar cuándo el navegador permite instalar la PWA
+window.addEventListener("beforeinstallprompt", (event) => {
+  // Evitar el aviso automático del navegador
+  event.preventDefault();
+
+  // Guardar el evento para usarlo cuando el usuario pulse Instalar
+  deferredInstallPrompt = event;
+
+  // Mostrar el aviso personalizado
+  installPrompt.hidden = false;
+  installPrompt.setAttribute("aria-hidden", "false");
+});
+
+// El usuario pulsa "Instalar app"
+installButton.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) {
+    return;
+  }
+
+  // Guardar el evento y evitar que se reutilice
+  const installEvent = deferredInstallPrompt;
+  deferredInstallPrompt = null;
+
+  installButton.disabled = true;
+
+  try {
+    // Mostrar el diálogo nativo de instalación
+    await installEvent.prompt();
+
+    // Comprobar la decisión del usuario
+    const choice = await installEvent.userChoice;
+
+    if (choice.outcome === "accepted") {
+      console.log("El usuario aceptó instalar la Pokédex.");
+    } else {
+      console.log("El usuario canceló la instalación.");
+    }
+
+    // Cerrar el aviso después de la decisión
+    installPrompt.hidden = true;
+    installPrompt.setAttribute("aria-hidden", "true");
+  } catch (error) {
+    console.error(
+      "Error al solicitar la instalación:",
+      error
+    );
+
+    // Ocultar el aviso si la solicitud ya no está disponible
+    installPrompt.hidden = true;
+    installPrompt.setAttribute("aria-hidden", "true");
+  } finally {
+    installButton.disabled = false;
+  }
+});
+
+// El usuario pulsa "Ahora no"
+dismissInstallButton.addEventListener("click", () => {
+  installPrompt.hidden = true;
+  installPrompt.setAttribute("aria-hidden", "true");
+
+  // No se instala la aplicación
+  deferredInstallPrompt = null;
+});
+
+// Detectar si la PWA se instaló
+window.addEventListener("appinstalled", () => {
+  installPrompt.hidden = true;
+  installPrompt.setAttribute("aria-hidden", "true");
+  deferredInstallPrompt = null;
+
+  console.log("La Pokédex se instaló correctamente.");
+});
